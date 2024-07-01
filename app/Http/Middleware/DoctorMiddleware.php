@@ -5,7 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-
+use Illuminate\Support\Facades\Auth;
+ 
 class DoctorMiddleware
 {
     /**
@@ -18,7 +19,7 @@ class DoctorMiddleware
         if(auth()->user() && auth()->user()->role == 1){
             return $next($request);
         }
-
+        Auth::logout();
         return redirect('/403');
     }
 }
